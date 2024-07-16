@@ -1,0 +1,146 @@
+<html>
+	<body>
+		<h1>今日の卓球班練習</h1>
+		<p><span class="label">morning:</span><span id="morning" class="flip">-</span></p>
+		<p><span class="label">afternoon:</span><span id="afternoon" class="flip">-</span></p>
+	</body>
+</html>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
+body{
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+}
+h1{
+	font-size:80px;
+}
+span{
+	font-size:70px;
+}
+.label{
+	font-size:100px;
+	font-family: 'Sacramento', cursive;
+}
+.flip {
+	display: inline-block;
+	transition: transform 0.5s;
+	transform-style: preserve-3d;
+}
+
+.flip.flip-animation {
+	transform: rotateY(180deg);
+}
+</style>
+<script>
+const data={
+	"7/16":{"morning":0,"afternoon":0},
+	"7/17":{"morning":0,"afternoon":1},
+	"7/18":{"morning":1,"afternoon":0},
+	"7/19":{"morning":0,"afternoon":1},
+	"7/20":{"morning":0,"afternoon":1},
+	"7/21":{"morning":0,"afternoon":1},
+	"7/22":{"morning":1,"afternoon":0},
+	"7/23":{"morning":0,"afternoon":0},
+	"7/24":{"morning":0,"afternoon":1},
+	"7/25":{"morning":1,"afternoon":0},
+	"7/26":{"morning":0,"afternoon":0},
+	"7/27":{"morning":0,"afternoon":1},
+	"7/28":{"morning":1,"afternoon":0},
+	"7/29":{"morning":0,"afternoon":0},
+	"7/30":{"morning":0,"afternoon":0},
+	"7/31":{"morning":0,"afternoon":1},
+	"8/1":{"morning":0,"afternoon":0},
+	"8/2":{"morning":0,"afternoon":0},
+	"8/3":{"morning":0,"afternoon":0},
+	"8/4":{"morning":0,"afternoon":0},
+	"8/5":{"morning":0,"afternoon":0},
+	"8/6":{"morning":0,"afternoon":0},
+	"8/7":{"morning":0,"afternoon":0},
+	"8/8":{"morning":0,"afternoon":0},
+	"8/9":{"morning":0,"afternoon":0},
+	"8/10":{"morning":0,"afternoon":0},
+	"8/11":{"morning":0,"afternoon":0},
+	"8/12":{"morning":0,"afternoon":0},
+	"8/13":{"morning":0,"afternoon":0},
+	"8/14":{"morning":0,"afternoon":0},
+	"8/15":{"morning":0,"afternoon":0},
+	"8/16":{"morning":1,"afternoon":0},
+	"8/17":{"morning":0,"afternoon":0},
+	"8/18":{"morning":0,"afternoon":1},
+	"8/19":{"morning":0,"afternoon":0},
+	"8/20":{"morning":1,"afternoon":1},
+	"8/21":{"morning":0,"afternoon":0},
+	"8/22":{"morning":0,"afternoon":1},
+	"8/23":{"morning":1,"afternoon":0},
+	"8/24":{"morning":0,"afternoon":0},
+	"8/25":{"morning":0,"afternoon":0},
+	"8/26":{"morning":0,"afternoon":0},
+	"8/27":{"morning":0,"afternoon":0},
+	"8/28":{"morning":1,"afternoon":0},
+	"8/29":{"morning":0,"afternoon":0},
+	"8/30":{"morning":0,"afternoon":1},
+	"8/31":{"morning":1,"afternoon":0},
+	"9/1":{"morning":0,"afternoon":0},
+	"9/2":{"morning":0,"afternoon":1},
+	"9/3":{"morning":1,"afternoon":0},
+	"9/4":{"morning":0,"afternoon":0},
+	"9/5":{"morning":0,"afternoon":1},
+	"9/6":{"morning":0,"afternoon":0},
+	"9/7":{"morning":0,"afternoon":0},
+	"9/8":{"morning":0,"afternoon":0},
+	"9/9":{"morning":0,"afternoon":0},
+	"9/10":{"morning":0,"afternoon":1},
+	"9/11":{"morning":1,"afternoon":0},
+	"9/12":{"morning":0,"afternoon":1},
+	"9/13":{"morning":1,"afternoon":1},
+	"9/14":{"morning":0,"afternoon":0},
+	"9/15":{"morning":1,"afternoon":0},
+	"9/16":{"morning":0,"afternoon":0},
+	"9/17":{"morning":1,"afternoon":0},
+	"9/18":{"morning":1,"afternoon":0},
+	"9/19":{"morning":0,"afternoon":1}
+}
+
+let morning = document.getElementById('morning');
+let afternoon = document.getElementById('afternoon');
+
+const date = new Date();
+const month = date.getMonth() + 1;
+const day = date.getDate();
+const today = `${month}/${day}`;
+
+function animateText(element, finalValue) {
+	const options = ["◯", "×"];
+	let counter = 0;
+	let interval = 50;
+	let maxIterations = 10;
+	
+	function changeText() {
+		element.classList.add('flip-animation');
+		setTimeout(() => {
+			element.textContent = options[counter % 2];
+			element.style.color = options[counter % 2] === "◯" ? "red" : "black";
+			element.classList.remove('flip-animation');
+			counter++;
+			
+			if (counter < maxIterations) {
+				interval += 50;  // Increase the interval to slow down
+				setTimeout(changeText, interval);
+			} else {
+				element.textContent = finalValue ? "◯" : "×";
+				element.style.color = finalValue ? "red" : "black";
+			}
+		}, 200);  // Half of the transition duration for smooth flipping
+	}
+	changeText();
+}
+
+const finalMorning = data[today]["morning"] == 1;
+const finalafternoon = data[today]["afternoon"] == 1;
+
+animateText(morning, finalMorning);
+animateText(afternoon, finalafternoon);
+
+console.log(today);
+</script>
